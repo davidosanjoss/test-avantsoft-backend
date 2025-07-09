@@ -1,14 +1,41 @@
-up:
-	docker compose -f docker-compose.dev.yml up --build
+# ====================
+# CONFIG DEV
+# ====================
+COMPOSE_DEV = docker compose -f docker-compose.dev.yml
+ENV_FILE_DEV = .env
 
-down:
-	docker compose -f docker-compose.dev.yml down -v
+up-dev:
+	$(COMPOSE_DEV) up --build
 
-bash:
-	docker compose -f docker-compose.dev.yml exec web bash
+down-dev:
+	$(COMPOSE_DEV) down -v
 
-migrate:
-	docker compose -f docker-compose.dev.yml exec web python manage.py migrate
+bash-dev:
+	$(COMPOSE_DEV) exec web bash
 
-createsuperuser:
-	docker compose -f docker-compose.dev.yml exec web python manage.py createsuperuser
+migrate-dev:
+	$(COMPOSE_DEV) exec web python manage.py migrate
+
+test-dev:
+	$(COMPOSE_DEV) exec web pytest
+
+# ====================
+# CONFIG PROD
+# ====================
+COMPOSE_PROD = docker compose -f docker-compose.prod.yml
+ENV_FILE_PROD = .env
+
+up-prod:
+	$(COMPOSE_PROD) up --build
+
+down-prod:
+	$(COMPOSE_PROD) down -v
+
+bash-prod:
+	$(COMPOSE_PROD) exec web bash
+
+migrate-prod:
+	$(COMPOSE_PROD) exec web python manage.py migrate
+
+test-prod:
+	$(COMPOSE_PROD) exec web pytest
