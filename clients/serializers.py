@@ -16,10 +16,12 @@ class ClientsFilterSerializer(filters.FilterSet):
         }
 
 
-class ClientsResponseSerializer(serializers.ModelSerializer):
+class ClientsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Clients
         fields = "__all__"
+
+        read_only_fields = ("id",)
 
 
 class DetailsSerializer(serializers.Serializer):

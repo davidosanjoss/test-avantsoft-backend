@@ -16,6 +16,9 @@ bash-dev:
 migrate-dev:
 	$(COMPOSE_DEV) exec web python manage.py migrate
 
+super-user-dev:
+	$(COMPOSE_DEV) exec web python manage.py createsuperuser
+
 test-dev:
 	$(COMPOSE_DEV) exec web pytest
 
@@ -36,6 +39,9 @@ bash-prod:
 
 migrate-prod:
 	$(COMPOSE_PROD) exec web python manage.py migrate
+
+super-user-prod:
+	$(COMPOSE_PROD) exec web python manage.py createsuperuser
 
 test-prod:
 	$(COMPOSE_PROD) exec web pytest
