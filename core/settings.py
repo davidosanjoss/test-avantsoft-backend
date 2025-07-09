@@ -1,6 +1,4 @@
 import os
-from urllib.parse import quote_plus
-
 import dj_database_url
 
 from pathlib import Path
