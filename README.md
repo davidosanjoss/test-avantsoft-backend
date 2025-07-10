@@ -35,6 +35,8 @@ Projeto desenvolvido como parte de um processo seletivo para a empresa **Avantso
 
 ### ▶️ Subir ambiente de desenvolvimento:
 
+#### ATENÇÃO: verifique a forma que o docker compose é executado na sua máquina, com ou sem "-", caso seja com "-", favor alterar o arquivo Makefile.
+
 ```bash
 make up-dev
 ```
@@ -66,7 +68,11 @@ make createsuperuser
 ## 🧾 Execução dos testes
 
 ```bash
-make test
+make test-dev
+```
+
+```bash
+make test-prod
 ```
 
 ## 📁 Estrutura de pastas
