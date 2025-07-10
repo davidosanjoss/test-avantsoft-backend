@@ -52,8 +52,14 @@ make createsuperuser
 |--------|----------------------------------|-------------------------------------------|
 | GET    | `/api/clients/`                  | Listar clientes (com paginação e filtros) |
 | POST   | `/api/clients/`                  | Criar cliente                             |
+| GET    | `/api/clients/<id>/`             | Busca cliente por id                      |
 | PATCH  | `/api/clients/<id>/`             | Editar cliente                            |
 | DELETE | `/api/clients/<id>/`             | Deletar cliente                           |
+| GET    | `/api/sales/`                    | Listar vendas (com paginação e filtros)   |
+| POST   | `/api/sales/`                    | Criar venda                               |
+| GET    | `/api/sales/<id>/`               | Busca venda por id                        |
+| PATCH  | `/api/sales/<id>/`               | Editar venda                              |
+| DELETE | `/api/sales/<id>/`               | Deletar venda                             |
 | GET    | `/api/statistics/top-customers/` | Estatísticas de clientes                  |
 | GET    | `/api/statistics/daily-sales/`   | Total de vendas por dia                   |
 
@@ -71,14 +77,14 @@ avantsoft-backend/
 ├── sales/
 ├── core/
 ├── tests/
-│   └── test_clients_crud.py
-│   └── test_sales_crud.py
-│   └── test_views.py
+│   └── setup
+│   └── tests_clients.py
+│   └── tests_sales.py
 ├── docker-compose.dev.yml
 ├── docker-compose.prod.yml
 ├── Makefile
-├── .env.dev
-├── .env.prod
+├── .env
+├── pyproject.toml
 └── README.md
 ```
 
@@ -89,4 +95,4 @@ avantsoft-backend/
 
 ## 👨‍💻 Autor
 
-Desenvolvido por [Seu Nome Aqui] para o desafio técnico da Avantsoft.
+Desenvolvido por [Davi Ribeiro] para o desafio técnico da Avantsoft.

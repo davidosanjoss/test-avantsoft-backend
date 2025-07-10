@@ -5,14 +5,17 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Sales
+from .paginations import CustomPagination
 from .serializers import SalesFilterSerializer, SalesSerializer
 
 
 class Sales_LC_View(generics.ListCreateAPIView):
-    queryset = Sales.objects.all()
+    queryset = Sales.objects.all().order_by('client__full_name')
+    serializer_class = SalesSerializer
     serializer_class = SalesSerializer
     permission_classes = [IsAuthenticated]
     filterset_class = SalesFilterSerializer
+    pagination_class = CustomPagination
 
 
 class Sales_RUD_View(generics.RetrieveUpdateDestroyAPIView):
