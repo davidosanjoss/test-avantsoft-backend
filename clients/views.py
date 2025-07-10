@@ -47,12 +47,19 @@ class TopCustomersStatsView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
+        data = {}
+
         top_total = (
             Clients.objects
             .annotate(total=Sum('sales__value'))
             .order_by('-total')
             .first()
         )
+        data["maior_volume"] = {
+            "id": top_total.id,
+            "nome": top_total.full_name,
+            "total_vendido": top_total.sales.aggregate(total=Sum('value'))['total']
+        } if top_total else {}
 
         top_avg = (
             Clients.objects
@@ -60,6 +67,11 @@ class TopCustomersStatsView(generics.ListAPIView):
             .order_by('-avg')
             .first()
         )
+        data["top_avg"] = {
+            "id": top_avg.id,
+            "nome": top_avg.full_name,
+            "media_valor": top_avg.sales.aggregate(avg=Avg('value'))['avg']
+        } if top_total else {}
 
         top_freq = (
             Clients.objects
@@ -67,21 +79,10 @@ class TopCustomersStatsView(generics.ListAPIView):
             .order_by('-freq')
             .first()
         )
+        data["top_freq"] = {
+            "id": top_freq.id,
+            "nome": top_freq.full_name,
+            "dias_com_venda": top_freq.sales.values('date').distinct().count()
+        } if top_total else {}
 
-        return Response({
-            "maior_volume": {
-                "id": top_total.id,
-                "nome": top_total.full_name,
-                "total_vendido": top_total.sales.aggregate(total=Sum('value'))['total']
-            },
-            "maior_media": {
-                "id": top_avg.id,
-                "nome": top_avg.full_name,
-                "media_valor": top_avg.sales.aggregate(avg=Avg('value'))['avg']
-            },
-            "maior_frequencia": {
-                "id": top_freq.id,
-                "nome": top_freq.full_name,
-                "dias_com_venda": top_freq.sales.values('date').distinct().count()
-            }
-        })
+        return Response(data, status=200)
